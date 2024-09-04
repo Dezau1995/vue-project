@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 const inputValue = ref('');
 const hideTasksCompleted = ref(false)
 const tasks = ref([
@@ -24,14 +24,19 @@ const addTask = () => {
   });
   inputValue.value = '';
 }
-const sortedTasks = () => {
+const sortedTasks = computed(() => {
+  console.log('demo')
   // [...tasks.value]
  const sortedTasks = tasks.value.toSorted((a, b) => a.completed > b.completed ? 1 : -1);
  if(hideTasksCompleted.value === true) {
   return sortedTasks.filter(task => task.completed === false)
  }
  return sortedTasks
-}
+});
+
+const remainingTasks = computed(() => {
+  return tasks.value.filter(task => task.completed === false).length
+})
 </script>
 <template>
 <h1>Todos list</h1>
@@ -44,7 +49,7 @@ const sortedTasks = () => {
 <p v-show="tasks >= 0">Vous n'avez pas de taches a faire !</p>
 <ul>
   <li
-  v-for="task in sortedTasks()"
+  v-for="task in sortedTasks"
   :key="task.date"
   :class="{done: task.completed}"> {{ task.title }}
   <input type="checkbox" v-model="task.completed"/>
@@ -54,6 +59,7 @@ const sortedTasks = () => {
   <input type="checkbox" v-model="hideTasksCompleted">
   Masquer les taches completees
 </label>
+<p v-if="remainingTasks > 0">{{ remainingTasks }} tache{{ remainingTasks > 1 ? 's' : '' }} a faire !</p>
 </template>
 <style scoped>
 h1{

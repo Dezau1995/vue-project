@@ -1,8 +1,15 @@
 <script setup>
-// import HelloWorld from './components/HelloWorld.vue'
-// import TheWelcome from './components/TheWelcome.vue'
 import Test from './components/test.vue'
 import FirstTest from './components/firsttest.vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter();
+
+const goToPage = () => {
+  console.log('test')
+  return router.push('/todos')
+}
+
 </script>
 
 <template>
@@ -15,6 +22,7 @@ import FirstTest from './components/firsttest.vue'
   <main>
     <Test/>
     <FirstTest/>
+    <button @click="goToPage">Changer de page</button>
   </main>
 </template>
 
