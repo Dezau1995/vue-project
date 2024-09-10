@@ -1,9 +1,6 @@
 <template>
   <header>
-    <!-- <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" /> -->
-    <img @click="homePageNavigation" class="logo" src="./assets/component-1.png" alt="logo" width="125" height="75"/>
-    <div class="wrapper">
-    </div>
+    <nav-bar/>
   </header>
 
   <main>
@@ -12,17 +9,18 @@
 </template>
 
 <script>
+import NavBar from './components/NavBar.vue'
+
 export default {
   name: 'App',
+  components: {
+    'nav-bar': NavBar,
+  },
 
   setup () {
-
-  const homePageNavigation = () => router.push('/');
-
-
-return {
-  homePageNavigation,
-}
+    return {
+      NavBar,
+    };
 },
 };
 
@@ -31,5 +29,15 @@ return {
 </script>
 
 <style>
-@import '../src/css/global.css';
+@import './css/global.css';
+@import './css/reset.css';
+
+.logo {
+  cursor: pointer;
+  transition: all 1s ease-in-out;
+}
+
+.logo:hover {
+  transform: scale(1.2);
+}
 </style>
